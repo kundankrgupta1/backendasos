@@ -22,24 +22,24 @@ router.post("/register", async (req, res) => {
 		const user = await userModel.findOne({ email });
 		if (user) {
 			res.status(400).json({
-				message: "User already exists"
+				message: "❌ User already exists"
 			})
 		}
 		bcrypt.hash(password, 5, async (err, hash) => {
 			if (err) {
 				res.status(500).json({
-					message: "Something went wrong while hasing the password"
+					message: "❌ Something went wrong while hasing the password"
 				})
 			}
 			const user = new userModel({ name, email, password: hash });
 			await user.save();
 			res.status(201).json({
-				message: "user registered successfully"
+				message: "user registered successfully 🎉 🎉"
 			});
 		});
 	} catch (error) {
 		res.status(500).json({
-			message: "Something went wrong while registering  the user", error
+			message: "❌ Something went wrong while registering  the user", error
 		})
 	}
 })
@@ -53,22 +53,22 @@ router.post("/login", async (req, res) => {
 				if (result) {
 					const token = jwt.sign({ userID: user._id, name: user.name }, process.env.JWT_SECRET);
 					res.status(200).json({
-						message: "Login Successfull", token: token, name: user.name
+						message: "✅ Login Successfully", token: token, name: user.name
 					})
 				} else {
 					res.status(401).json({
-						message: "Invalid Credentails"
+						message: "❌ Invalid Credentails"
 					})
 				}
 			})
 		} else {
 			res.status(401).json({
-				message: "User not found, register first!"
+				message: "❌ User not found, register first!"
 			})
 		}
 	} catch (error) {
 		res.status(500).json({
-			message: "Something went wrong while login the user", error
+			message: "❌ Something went wrong while login the user", error
 		})
 	}
 })
