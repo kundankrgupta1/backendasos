@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const connectionDB = require("./config/db");
 const router = require("./routes/user.route");
+const routerProduct = require("./routes/product.route");
 
 
 const PORT = process.env.PORT || 8080;
@@ -16,6 +17,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/users", router);
+app.use("/product", routerProduct);
 
 app.listen(process.env.PORT, async () => {
 	try {
